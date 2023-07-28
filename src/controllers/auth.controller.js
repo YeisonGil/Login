@@ -52,11 +52,19 @@ export const login = async (req, res) =>{
 };
 //Este es para cerrar sesion.
 export const logout = (req, res) => {
-    res.cookie('toke', '',{
+    res.cookie('token', '',{
         expires : new Date(0),
     });
     return res.sendStatus(200);
 }
 export const profile = async (req,res) =>{
-    res.send('profile') //con esta se prueba de que si funcione.
+    //res.send('profile') //con esta se prueba de que si funcione.
+    const userFound = await User.findById(req.user.id);
+    if(!userFound) return res.status(400).json({ message: "User not found"});
+
+    res.status(201).json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+    });
 }
