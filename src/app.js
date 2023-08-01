@@ -9,5 +9,6 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cookieParser()); // Este es para manejar y acceder de forma mas sencilla a las cookies.
 app.use("/api", authRoutes)
+app.use("/api", taskRouter)
 
 export default app;
